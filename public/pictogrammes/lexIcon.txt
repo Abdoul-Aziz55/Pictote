@@ -1,0 +1,169 @@
+Ce fichier est le lexique associé aux pictogrammes. 
+Chaque pictogramme est rangé dans une catégorie, par thème/sujet. 
+Chaque thème possède un numéro. Tous les pictogrammes appartenant à ce sujet sont numérotés dans un ordre croissant, précédés par le numéro correspondant à leur catégorie. 
+Ex :	Le thème A a pour numéro 15.
+	Tous les pictogrammes du thème A sont numérotés ainsi : 151, 152, 153, ... 1510... 1530...
+Les catégories Background et Time ont leur propre numérotation (respectivement bg1, bg2... et T1, T2 ...)
+
+
+
+
+BG	BACKGROUND
+BG2	ecole
+BG3	maison
+BG4	parc
+BG5	chambre
+
+T	TIME
+T1	matin
+T2	midi
+T3	après-midi
+T4	nuit 
+T5	dans une semaine
+T6	demain
+T7	hier 
+
+1	MAISON
+1	télévision[ENT=’télévision’, anim=non]
+2	téléphone[ENT=’téléphone’, anim=non]
+3	table[ENT=’table’, anim=non]
+4	serviette[ENT=’serviette’, anim=non]
+5	ordinateur[ENT=’ordinateur’, anim=non]
+6	lit[ENT=’lit’, anim=non]
+7	escalier[ENT=’escalier’, anim=non]
+8	chaise[ENT=’chaise’, anim=non]
+9	canapé[ENT=’canapé’, anim=non]
+10	armoire[ENT=’armoire’, anim=non]
+11	maison[ENT='maison', anim=non]
+12	salle de bain/bain [ENT='baignoire', anim=non|PRED'prendre_un_bain<Px>', Px[anim=oui]]
+13	couteau[ENT='couteau', anim=non|PRED'couper_avec_un_couteau<Px,Py>', Px[anim=oui]]
+14	grille-pain[ENT='grille_pain', anim=non|PRED'griller_pain<Px,Py>', Px[anim=oui], Py[anim=non]]
+15	four[ENT='four', anim=non|PRED'cuire_au_four<Px,Py>', Px[anim=oui], Py[anim=non]]
+
+2	ECOLE
+21	mathématiques[ENT=’mathématiques’, anim=non|PRED='faire_des_mathematiques<Px>', Px[anim=oui]]
+22	livre_lire[ENT=’livre’, anim=non|PRED='lire<Px,(Py)>', Px[anim=oui]]
+23	microscope_svt[ENT=’microscope’, anim=non|PRED='faire_sciences<Px,(Py)>', Px[anim=oui]]
+24	globe_géographie[ENT=’globe’, anim=non|PRED='faire_géographie<Px>', Px[anim=oui]]
+25	palette_peinture[ENT=’palette’, anim=non|PRED='peindre<Px,(Py)>', Px[anim=oui]]
+26	puzzle[ENT=’puzzle’, anim=non|PRED='faire_un_puzzle<Px,(Py)>', Px[anim=oui]]
+27	sport
+28	dictée
+29	lever_la_main
+210	ciseaux
+
+3	NOURRITURE
+31	steak[ENT=’steak’, anim=non]
+32	repas[PRED='manger(Px, (Py))',Px[anim=oui],Py[anim=non]]
+33	raisin[ENT=’raisin’, anim=non]
+34	poulet[ENT=’poulet’, anim=non]
+35	pomme[ENT=’pomme’, anim=non]
+36	poire[ENT=’poire’, anim=non]
+37	pizza[ENT=’pizza’, anim=non]
+38	pastèque[ENT=’pastèque’, anim=non]
+39	pain[ENT=’pain’, anim=non]
+310	glace[ENT=’glace’, anim=non]
+311	gâteau[ENT=’gâteau’, anim=non]
+312	fromage[ENT=’fromage’, anim=non]
+313	frites[ENT=’frites’, anim=non]
+314	framboise[ENT=’framboise’, anim=non]
+315	fraise[ENT=’fraise’, anim=non]
+316	cookies[ENT=’cookies’, anim=non]
+317	chocolat_chaud[ENT=’chocolat_chaud’, anim=non]
+318	banane[ENT=’banane’, anim=non]
+319	avocat[ENT=’avocat’, anim=non]
+320	ananas[ENT=’ananas’, anim=non]
+
+4	émotions 
+41	triste[PRED='être_triste<Px, (Py)>',Px[anim=oui]]
+42	fatigue[PRED='être_fatigué<Px, (Py)>',Px[anim=oui]]
+43	drole[PRED='rire<Px, (Py)>',Px[anim=oui]]
+45	content[PRED='être_content(Px, (Py))',Px[anim=oui]]
+46	colère[PRED='être_en_colère(Px, (Py))',Px[anim=oui]]
+47	peur[PRED='avoir_peur<Px, (Py)>', Px[anim=oui]]
+48	dégout[PRED='être_dégouté<Px,(Py)>', Px[anim=oui]]
+
+5	NATURE 
+511	arbre[ENT=’arbre’, anim=non]
+521	canard[ENT=’canard’, anim=oui]
+522	chat[ENT=’chat’, anim=oui]
+523	cheval[ENT=’cheval’, anim=oui]
+524	chien[ENT=’chien’, anim=oui]
+525	girafe[ENT=’girafe’, anim=oui]
+526	éléphant[ENT=’éléphant’, anim=oui]
+527	lapin[ENT=’lapin’, anim=oui]
+528	lion[ENT=’lion’, anim=oui]
+529	loup[ENT=’loup’, anim=oui]
+5210	pigeon[ENT=’pigeon’, anim=oui]
+5211	poisson[ENT=’poisson’, anim=oui]
+5212	singe[ENT='singe’, anim=oui]
+5213	souris[ENT=’souris’, anim=oui]
+5214	tigre[ENT=’tigre’, anim=oui]
+5215	vache[ENT=’vache’, anim=oui]
+5216	zèbre[ENT=’zèbre’, anim=oui]
+
+6	ACTION
+61	courir[PRED='courir(Px, (Py))',Px[anim=oui],Py[anim=non]]
+62	marcher[PRED='marcher(Px, (Py))',Px[anim=oui],Py[anim=non]]
+63	aimer[PRED='aimer<Px,Py>, Px[anim=oui]]
+64	regarder[PRED='regarder(Px, (Py))',Px[anim=oui]]
+65	parler[PRED='parler<Px, Py, (Pz)>',Px[anim=oui], Py[anim=oui]]
+66	détester[PRED='détester<Px,Py>, Px[anime=oui]
+67	boire[PRED='se_reveiller<Px, (Py)>', Px[anim=oui], Py[anim=non]]
+68	manger[PRED='manger<Px, (Py)>', Px[anim=oui]]
+69	se_reveiller[PRED='se_reveiller<Px>', Px[anim=oui]]
+610	dormir[PRED='dormir<Px>', Px[anim=oui]]
+611	aller[PRED='aller<Px,Py>, Px[anim=oui], Py[anim=non]
+612	applaudir[PRED='applaudir<Px,(py)>', Px[anim=oui]]
+613	tomber[PRED='tomber<Px>', Px[anim=oui]]
+614	rencontrer[PRED='se_rencontrer<Px,Py>', Px[anim=oui], Py[anim=non]]
+615	crier[PRED='crier<Px, (Py)>, Px[anim=oui]]
+616 	se_moquer[PRED="se_moquer<Px, Py>, Px[anim=oui]]
+617	demander[PRED="demander<Px, Py, Pz>, Px[anim=oui], Py[anim=non]]
+618	dire_au_revoir[PRED="dire_au_revoir<Px, Py>, Px[anim=oui]]
+619	ecouter_musique[PRED="écouter_de_la_musique<Px, Py>, Px[anim=oui]]
+620	s'éloigner[PRED="s_eloigner<Px, Py>, Px[anim=oui]]
+621	faire_bisou[PRED="faire_bisou<Px, Py>, Px[anim=oui]]
+623	se_noyer[PRED="se_noyer<Px>', Px[anim=oui]]
+625	pleurer[PRED='pleurer<Px>', Px[anim=oui]]
+626	rêver[PRED='rêver<Px, (Py)>', Px[anim=oui]]
+
+7	FAMILLE
+71	famille[ENT='famille', anim=oui]
+72	père[ENT='père', anim=oui]
+73	mère[ENT='mère, anim=oui]
+74	??
+75	frère-et-soeur[ENT='frère_soeur', anim=oui]
+76	grands-parents[ENT='grands_parents', anim=oui]
+77	grand-père[ENT='grand_pere', anim=oui]
+78	grand-mère[ENT='grand_mere', anim=oui]
+
+8	VEHICULES
+81	avion[ENT=’avion’, anim=non|PRED='prendre_l_avion<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+82	bus[ENT=’bus’, anim=non|PRED='prendre_le_bus<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+83	moto[ENT=’moto’, anim=non|PRED='faire_de_la_moto<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+84	train[ENT=’train’, anim=non|PRED='prendre_le_train<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+85	trotinette[ENT=’trotinette’, anim=non|PRED='faire_de_la_trotinette<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+86	vélo[ENT=’vélo’, anim=non|PRED='faire_du_vélo<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+87	voiture[ENT='voiture’, anim=non|PRED='prendre_la_voiture<Px,(Py)>,Px[anim=oui],Py[anim=non]]
+
+9	METEO/TEMPERATURE
+91	chaud[PRED='être_chaud<Px>|PRED'faire_chaud']
+92	froid[PRED='être_froid<Px>|PRED'faire_froid']
+93	neige[PRED='neige']
+94	orage[PRED='orage']
+95	nuageux[PRED='nuageux']
+96	pluie[PRED='pleuvoir']
+
+10	perso
+101	petite_fille[PRED'etre_une_petite_fille<Px>', Px[anim=oui]]
+102	femme[PRED'etre_une_femme<Px>', Px[anim=oui]]
+103	bébé[PRED'etre_une_bébé<Px>', Px[anim=oui]]
+104	garçon[PRED'etre_un_garçon<Px>', Px[anim=oui]]
+105	femme[PRED'etre_un_homme<Px>', Px[anim=oui]]
+
+11	HABITS/ACCESSOIRES
+111	baskets[ENT=’baskets’, anim=non]
+112	sac_à_dos[ENT=’sac_à_dos’, anim=non]
+113	parapluie[ENT=’parapluie’, anim=non]
+114	chaussons[ENT=’chaussons’, anim=non]

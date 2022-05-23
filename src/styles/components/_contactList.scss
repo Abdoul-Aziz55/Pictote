@@ -1,0 +1,33 @@
+
+#contactList{
+    flex-grow:1;
+    width: 100%;
+    overflow-y: scroll;
+    .contact{
+        display: flex;
+        flex-wrap: wrap;
+
+        img{
+            width:60px;
+            margin-left: 20px;
+            margin-top: 20px;
+            border: 5px solid #B22222;
+            border-radius: 50%;
+        }
+
+        .famille{
+            border: 5px solid #008000;
+
+        }
+
+
+        h3{
+            font-size: 20px;
+            margin-left: 20px;
+            margin-top: 40px;
+            
+        }
+       
+    }
+}
+
