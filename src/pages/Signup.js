@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {auth, db} from "../Firebase/firebase-config";
-import {
-    createUserWithEmailAndPassword,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate} from 'react-router-dom';
+import { AuthContext } from '../Firebase/Auth';
 
 
 const Signup = ({signUp}) => {
@@ -19,13 +18,24 @@ const Signup = ({signUp}) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
 
+    const { currentUser } = useContext(AuthContext);
+    if (currentUser) {
+        return <Navigate to="/home"/>
+    }
 
-    
+
+    /***
+     * function that validates in a soft way the user input
+     * @returns {boolean}
+     */
     function validateForm() { 
         return firstName.length >= 3  && email.length > 0 && password.length > 0 && confirmPassword.length > 0 && password === confirmPassword
                 && email.indexOf('@') > - 1;
     }
-    
+    /***
+     * function that signs up a user in the database
+     * @param user
+     */
     function registerUser(user) {
 
         setDoc(doc(db, "users", user.uid), {
@@ -34,12 +44,17 @@ const Signup = ({signUp}) => {
             profilePicture: "",
             // birthDate: birthDate,
             email: email,
-            contacts: {},
-            conversations: {},
+            contacts: [],
 
-        });
+
+        }); // keep track of the user on the database
+        setDoc(doc(db, "conversations", user.uid), []); // create a new conversation for the user
     }
 
+    /***
+     * function that handles the registration of the new user in the authentication handler
+     * @param event
+     */
     function handleSubmit(event) {
         event.preventDefault();
         createUserWithEmailAndPassword(
@@ -68,7 +83,7 @@ const Signup = ({signUp}) => {
                 setError("Le mot de passe doit contenir au moins 6 caractères.");
             }
 
-            console.error(error);
+
         }
         );
 
@@ -83,6 +98,7 @@ const Signup = ({signUp}) => {
         background: '#B0E0E6',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column',
     };
 
     const logoStyle = {
@@ -103,8 +119,8 @@ const Signup = ({signUp}) => {
         <>
             <img style={logoStyle} src="./img/logoP1.png" alt="logo" onClick={()=> navigate("/")} />
             <div className="Signup" style={style}>
+                <h1><b>Inscription</b></h1><br/>
                 <Form onSubmit={handleSubmit}>
-                    {/* {warning==="" ? (<p></p>):(<p>{warning}</p>)} */}
                     <Form.Group size="lg" controlId="firstName">
                         <Form.Label>Prénom</Form.Label>
                         <Form.Control
@@ -115,7 +131,7 @@ const Signup = ({signUp}) => {
                         />
                     </Form.Group>
                     <br/>
-                    <Form.Group size="lg" controlId="firstName">
+                    <Form.Group size="lg" controlId="lastName">
                         <Form.Label>Nom de famille</Form.Label>
                         <Form.Control
                             autoFocus
@@ -159,6 +175,11 @@ const Signup = ({signUp}) => {
 
                     <Button size="lg" type="submit" disabled={!validateForm()}>Créer un compte</Button>
                     <Button size="lg" style={{marginLeft: "20px"}} onClick={()=> navigate("/")}>Annuler</Button>
+                    <br/><br/>
+                    <p>Vous avez déjà un compte ?
+                        <a href="/login" style={{marginLeft: "10px"}}>Connectez-vous</a>
+                    </p>
+
                 </Form>
 
             </div>

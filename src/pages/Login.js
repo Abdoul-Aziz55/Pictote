@@ -1,63 +1,51 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useCallback} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {auth} from "../Firebase/firebase-config"
-import {
-        signInWithEmailAndPassword,
-
-        // onAuthStateChanged,
-    
-} from "firebase/auth"
-
-import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { AuthContext } from '../Firebase/Auth';
+import { Navigate, useNavigate} from 'react-router-dom';
 
 
-const Login = ({logIn}) => {
+const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // const [user, setUser] = useState({});
-
     const [error, setError] = useState(null);
+    const { currentUser } = useContext(AuthContext);
+        
+    if (currentUser) {
+        return <Navigate to="/home"/>
+    }
 
-    // onAuthStateChanged(auth, (currentUser) => {
-    //     setUser(currentUser);
-    // });
-
-
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
         signInWithEmailAndPassword(
                 auth,
                 email,
                 password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            // console.log(user);
-            logIn(user);
-            navigate("/home");
-        })
+        
         .catch((error) => {
-            let errorCode = error.code;
-            if (errorCode === "auth/user-not-found")
+            if (error.code === "auth/user-not-found")
             {
                 setError("Mail invalide.");
             }
-            if (errorCode === "auth/wrong-password")
+            if (error.code === "auth/wrong-password")
             {
                 setError("Mot de passe invalide.");
             }
-            if (errorCode === "auth/too-many-requests")
+            if (error.code === "auth/too-many-requests")
             {
                 setError("Le compte lié à cet email a été désactivé temporairement suite à plusieurs tentatives de connexion.");
             }   
             
         });
-    };
-        
-    
 
+    }
+
+    
+ 
     const style = {
         display: 'flex',
         width: '100%',
@@ -66,6 +54,7 @@ const Login = ({logIn}) => {
         background: '#B0E0E6',
         justifyContent: 'center',
         alignItems: 'center',
+        flexDirection: 'column'
     };
 
     const logoStyle = {
@@ -81,15 +70,13 @@ const Login = ({logIn}) => {
         fontSize: '15px',
 
     }
-
-    
-
     
 
     return (
         <>
             <img style={logoStyle} src="./img/logoP1.png" alt="logo" onClick={()=> navigate("/")}/>
-            <div className="login" style={style}>   
+            <div style={style}>   
+                <h1><b>Connexion</b></h1><br/>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group size="lg" controlId="email">
                     <Form.Label>Email</Form.Label>
@@ -121,6 +108,10 @@ const Login = ({logIn}) => {
                     <Button size="lg" style={{marginLeft: "20px"}} onClick={()=> navigate("/")}>
                         Annuler
                     </Button>
+                    <br/><br/>
+                    <p>Vous n'avez pas de compte ?
+                        <a href="/signup" style={{marginLeft: "10px"}}>Créer un compte</a>
+                    </p>
 
                 </Form>
             </div>

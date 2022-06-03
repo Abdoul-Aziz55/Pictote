@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {db} from '../Firebase/firebase-config';
-import {collection, getDocs, orderBy} from 'firebase/firestore';
-import {useNavigate} from 'react-router';
+import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate, Navigate } from 'react-router';
+import { AuthContext } from '../Firebase/Auth';
 
 
 const ChooseDest = ({destChoose, messageSubmit}) => {
     const navigate = useNavigate();
     const [destList, setDestList] = useState({});
+    const {currentUser} = useContext(AuthContext);
+    
 
     const style = {
         display: 'flex',
@@ -50,23 +53,29 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
     useEffect(() => {
 
         const usersListRef = collection(db, "users");
-        getDocs(usersListRef, orderBy("profilePicture")).then((docs) => {
+        getDocs(usersListRef).then((docs) => {
             docs.forEach((doc) => {
-                setDestList( prevState => ({
-                    ...prevState,
-                    [doc.id]: doc.data().profilePicture
-                }));
+                if (doc.id !== currentUser.uid) {
+                    setDestList( prevState => ({
+                        ...prevState,
+                        [doc.id]: doc.data().profilePicture
+                    }));
+                }
             });
         });
             
     }, []);
 
+    
     const handleClick = (destUid) => {
         destChoose(destUid);
-        messageSubmit();
-        navigate("/home");
+        messageSubmit(currentUser.uid);
+        navigate('/home');
     }
-
+    
+    if (!currentUser) {
+        return <Navigate to="/login" />;
+    }
 
     return (
         <>
