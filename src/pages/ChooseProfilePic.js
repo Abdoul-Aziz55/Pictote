@@ -1,20 +1,20 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { db, storage } from '../Firebase/firebase-config';
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import { doc, updateDoc } from 'firebase/firestore';
-import { useNavigate, Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/Auth';
 
 const ChooseProfilePic = () => {
     const navigate = useNavigate();
-
     const [profilePictureURL, setProfilePictureURL]= useState(null);
-
     const { currentUser } = useContext(AuthContext);
 
-    if (!currentUser) {
-        return <Navigate to="/login" />;
-    }
+    useEffect(() => {
+        if (!currentUser) {
+            navigate("/login");
+        }
+    }, [currentUser]);
     
     const handleImageChange = (e) => {
         e.preventDefault();

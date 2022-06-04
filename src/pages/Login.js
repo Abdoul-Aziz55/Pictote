@@ -1,10 +1,10 @@
-import React, {useState, useContext, useCallback} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {auth} from "../Firebase/firebase-config"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { AuthContext } from '../Firebase/Auth';
-import { Navigate, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
@@ -15,9 +15,12 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { currentUser } = useContext(AuthContext);
         
-    if (currentUser) {
-        return <Navigate to="/home"/>
-    }
+    useEffect(() => {
+        if (currentUser) {
+            navigate("/home");
+        }
+    }, [currentUser])
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -25,6 +28,9 @@ const Login = () => {
                 auth,
                 email,
                 password)
+        .then(() => {
+            navigate("/home");
+        })
         
         .catch((error) => {
             if (error.code === "auth/user-not-found")

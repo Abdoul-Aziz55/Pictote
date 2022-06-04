@@ -106,7 +106,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/home" element={<PrivateRoute Component={<Home message={message} setMessage={setMessage}/>} alternativePath="/login"/>} />
-            { !dest && <Route exact path="/chooseDest" element={<ChooseDest destChoose={(destUid) => handleDestChange(destUid)} messageSubmit={(userUid)=> {handleSubmitMessage(userUid)}}/>}  />}
+            { !dest && message && <Route exact path="/chooseDest" element={<ChooseDest destChoose={(destUid) => handleDestChange(destUid)} messageSubmit={(userUid)=> {handleSubmitMessage(userUid)}}/>}  />}
            
             <Route path="/" element={<StartingPage/>} />
             

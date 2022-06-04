@@ -1,14 +1,14 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {auth, db} from "../Firebase/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"
-import { useNavigate, Navigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Firebase/Auth';
 
 
-const Signup = ({signUp}) => {
+const Signup = () => {
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -17,11 +17,14 @@ const Signup = ({signUp}) => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
-
     const { currentUser } = useContext(AuthContext);
-    if (currentUser) {
-        return <Navigate to="/home"/>
-    }
+
+    
+    useEffect(() => {
+        if (currentUser) {
+            navigate("/home");
+        }
+    }, [currentUser])
 
 
     /***
@@ -32,24 +35,7 @@ const Signup = ({signUp}) => {
         return firstName.length >= 3  && email.length > 0 && password.length > 0 && confirmPassword.length > 0 && password === confirmPassword
                 && email.indexOf('@') > - 1;
     }
-    /***
-     * function that signs up a user in the database
-     * @param user
-     */
-    function registerUser(user) {
-
-        setDoc(doc(db, "users", user.uid), {
-            firstName: firstName,
-            lastName: lastName,
-            profilePicture: "",
-            // birthDate: birthDate,
-            email: email,
-            contacts: [],
-
-
-        }); // keep track of the user on the database
-        setDoc(doc(db, "conversations", user.uid), []); // create a new conversation for the user
-    }
+    
 
     /***
      * function that handles the registration of the new user in the authentication handler
@@ -63,9 +49,22 @@ const Signup = ({signUp}) => {
                 password)
         .then((userCredential) => {
             const user = userCredential.user;
-            signUp(user);
-            registerUser(user);
-            navigate("/chooseProfilePic");
+            setDoc(doc(db, "users", user.uid), {
+                firstName: firstName,
+                lastName: lastName,
+                profilePicture: "",
+                // birthDate: birthDate,
+                email: email,
+                contacts: [],
+    
+    
+            }) // keep track of the user on the database
+            .then(() => {
+                setDoc(doc(db, "conversations", user.uid), {}) // create a new conversation for the user
+                .then(() => {
+                    navigate("/chooseProfilePic");
+                })
+            })
 
         })
         .catch((error) => {

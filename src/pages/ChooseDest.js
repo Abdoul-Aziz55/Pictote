@@ -52,17 +52,23 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
 
     useEffect(() => {
 
-        const usersListRef = collection(db, "users");
-        getDocs(usersListRef).then((docs) => {
-            docs.forEach((doc) => {
-                if (doc.id !== currentUser.uid) {
-                    setDestList( prevState => ({
-                        ...prevState,
-                        [doc.id]: doc.data().profilePicture
-                    }));
-                }
+        if (!currentUser) {
+            navigate("/login");
+        }
+        const getUsers = () => {
+            const usersListRef = collection(db, "users");
+            getDocs(usersListRef).then((docs) => {
+                docs.forEach((doc) => {
+                    if (doc.id !== currentUser.uid) {
+                        setDestList( prevState => ({
+                            ...prevState,
+                            [doc.id]: doc.data().profilePicture
+                        }));
+                    }
+                });
             });
-        });
+        }
+        getUsers();
             
     }, []);
 
@@ -73,9 +79,7 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
         navigate('/home');
     }
     
-    if (!currentUser) {
-        return <Navigate to="/login" />;
-    }
+    
 
     return (
         <>
