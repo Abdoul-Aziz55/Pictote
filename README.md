@@ -1,6 +1,6 @@
 # Messagerie par pictogrammes
 
-Cette application est destinée à des enfants ou adolescents privés des outils de communication classiques car non verbaux, ou non lecteurs, ou non scripteurs.
+Cette application est destinée à des enfants ou adolescents privés des outils de communication classiques car non verbaux, ou non lecteurs, ou non scripteurs.\
 Elle permet de pouvoir echanger des messages avec d'autres utilisateurs de l'application sous forme de pictogrammes.\
 Un message est constitué d'un context (une image) sur lequel on glisse et depose des pictogrammes.
 
