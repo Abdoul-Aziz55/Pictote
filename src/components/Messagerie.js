@@ -11,9 +11,9 @@ const Messagerie = ({ message, setMessage }) => {
         <div id="messagerie" className="d-flex flex-row">
             <Profile />
             {showMessageForm ?
-             <MessagerieScreen showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} message={message} setMessage={setMessage}/> 
+                <MessagerieScreen showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} message={message} setMessage={setMessage}/> 
             : 
-            <Conversations showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} />}
+                <Conversations showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} />}
         </div>
     );
 };

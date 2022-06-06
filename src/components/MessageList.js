@@ -43,7 +43,7 @@ const MessageList = ({convId}) => {
 
         }
         getMessages();
-    }, []);
+    }, [convId]);
 
     const messageContainerStyle = {
         display: 'flex',

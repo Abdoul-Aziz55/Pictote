@@ -4,7 +4,7 @@ import update from 'immutability-helper';
 import Picto from './Picto';
 
 
-const NewMessageForm = ({messageBg, message, setMessage}) => {
+const NewMessageForm = ({messageBg, setMessage}) => {
     
     const [thePictos, setThePictos] = useState({});
 

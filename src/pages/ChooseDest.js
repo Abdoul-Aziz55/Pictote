@@ -1,14 +1,16 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {db} from '../Firebase/firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
-import { useNavigate, Navigate } from 'react-router';
+import { doc, updateDoc, collection, getDocs, arrayUnion } from 'firebase/firestore';
+import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/Auth';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 
-const ChooseDest = ({destChoose, messageSubmit}) => {
+const ChooseDest = ({ message, setMessage, setDest }) => {
     const navigate = useNavigate();
     const [destList, setDestList] = useState({});
     const {currentUser} = useContext(AuthContext);
+    const userRef = doc(db, "users", currentUser.uid);
     
 
     const style = {
@@ -74,15 +76,38 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
 
     
     const handleClick = (destUid) => {
-        destChoose(destUid);
-        messageSubmit(currentUser.uid);
-        navigate('/home');
+        setDest(destUid);
+        if (message){
+        const destRef = doc(db, "conversations", destUid);
+        const senderRef = doc(db, "conversations", currentUser.uid);
+
+        const theNewmessage = {
+            sender: currentUser.uid,
+            message: message,
+            date: new Date().toLocaleString(),
+        }
+        
+        updateDoc(destRef, currentUser.uid, arrayUnion(theNewmessage))
+            .then(() => {
+                updateDoc(senderRef, destUid, arrayUnion(theNewmessage))
+                .then(() => {
+                    updateDoc(userRef, "contacts", arrayUnion(destUid)).then(() => {
+                        setMessage(null);
+                        setDest(null);
+                        navigate('/home');
+                    })
+                
+                })
+            })
+        }
+        
     }
     
     
 
     return (
         <>
+
             <img style={logoStyle} src="./img/logoP1.png" alt="logo" />
             <div className='chooseDest' style={style}>
                 <p>Choisissez votre destinataire</p>
@@ -98,7 +123,6 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
                     )}
                 </div>
             </div>
-
 
         </>
     );

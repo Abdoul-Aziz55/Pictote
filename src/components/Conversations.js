@@ -23,8 +23,9 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
                 Object.keys(document.data()).forEach((uid) => {
                     const convRef = doc(db, "users", uid);
                     getDoc(convRef)
-                    .then((document) => {
-                        setConversations(prevConv => [...prevConv, {...document.data(), id: uid}]);
+                    .then((document1) => {
+                        setConversations(prevConv => [...prevConv, {...document1.data(), id: uid}]);
+                        
                     });
                 });
             });
@@ -33,6 +34,7 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         
         
         getUsers();
+        
         
     }, []);
     
