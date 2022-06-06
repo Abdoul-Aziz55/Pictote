@@ -3,8 +3,6 @@ import {db} from '../Firebase/firebase-config';
 import { doc, updateDoc, collection, getDocs, arrayUnion } from 'firebase/firestore';
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/Auth';
-import { Routes, Route, BrowserRouter } from "react-router-dom";
-
 
 const ChooseDest = ({ message, setMessage, setDest }) => {
     const navigate = useNavigate();
