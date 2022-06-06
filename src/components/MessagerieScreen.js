@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import ChatContainer from "./ChatContainer";
 import TypeAndSendMessages from "./TypeAndSendMessages";
 import { useNavigate } from 'react-router';
-import update from 'immutability-helper';
 
 
 const MessagerieScreen = ({showMessageForm, setShowMessageForm, message, setMessage}) => {
