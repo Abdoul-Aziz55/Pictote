@@ -68,9 +68,9 @@ export const NavBtn = styled.nav`
   
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #808080;
+  background: black;
   padding: 10px 22px;
-  color: #000000;
+  color: #6B8E23;
   outline: none;
   border: none;
   cursor: pointer;
@@ -80,7 +80,7 @@ export const NavBtnLink = styled(Link)`
   margin-left: 24px;
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #808080;
+    background: white;
+    color: black; 
   }
 `;

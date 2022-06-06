@@ -1,38 +1,46 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { db, storage } from '../Firebase/firebase-config';
 import {ref, uploadBytes, getDownloadURL} from "firebase/storage";
 import { doc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router';
+import { AuthContext } from '../Firebase/Auth';
 
-const ChooseProfilePic = ({userUid}) => {
+const ChooseProfilePic = () => {
     const navigate = useNavigate();
+    const [profilePictureURL, setProfilePictureURL]= useState(null);
+    const { currentUser } = useContext(AuthContext);
 
-    const [profilePicture, setProfilePicture]= useState(null);
+    useEffect(() => {
+        if (!currentUser) {
+            navigate("/login");
+        }
+    }, [currentUser]);
     
     const handleImageChange = (e) => {
         e.preventDefault();
         const image = e.target.files[0];
-        setProfilePicture(image);
+        setProfilePictureURL(image);
     }
 
     const uploadImage = () => {
-        if (profilePicture === "null") return;
-        const imageRef = ref(storage, `profilePictures/${userUid}`);
-        uploadBytes(imageRef, profilePicture).then(() => {
+        if (!profilePictureURL) return;
+        const imageRef = ref(storage, `profilePictures/${currentUser.uid}`);
+        uploadBytes(imageRef, profilePictureURL).then(() => {
             getDownloadURL(imageRef).then((url) => {
-                const userRef = doc(db, "users", userUid);
+                const userRef = doc(db, "users", currentUser.uid);
                 updateDoc(userRef, {
                     profilePicture: url
+                }).then(() => {
+                    navigate("/home");
                 });
+
             });
-            navigate("/home");
-        }
-        )
+        })
         .catch((error) => {
             alert(error.message);
-        }
-        );
+        });
     }
+
 
     const style = {
         display: 'flex',
@@ -54,7 +62,7 @@ const ChooseProfilePic = ({userUid}) => {
 
     return (
         <>
-            <img style={logoStyle} src="./img/logoP1.png" alt="logo" />
+            <img style={logoStyle} src="./img/logoP1.png" alt="logo" onClick={()=> navigate("/home")} />
             <div className='chooseProfilePic' style={style}>
                 <input type="file" onChange={(event) => {handleImageChange(event)}} />
                 <button type="button" className="btn btn-secondary" onClick={uploadImage}>

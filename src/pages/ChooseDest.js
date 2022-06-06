@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {db} from '../Firebase/firebase-config';
-import {collection, getDocs, orderBy} from 'firebase/firestore';
-import {useNavigate} from 'react-router';
+import { doc, updateDoc, collection, getDocs, arrayUnion } from 'firebase/firestore';
+import { useNavigate } from 'react-router';
+import { AuthContext } from '../Firebase/Auth';
 
-
-const ChooseDest = ({destChoose, messageSubmit}) => {
+const ChooseDest = ({ message, setMessage, setDest }) => {
     const navigate = useNavigate();
     const [destList, setDestList] = useState({});
+    const {currentUser} = useContext(AuthContext);
+    const userRef = doc(db, "users", currentUser.uid);
+    
 
     const style = {
         display: 'flex',
@@ -49,27 +52,60 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
 
     useEffect(() => {
 
-        const usersListRef = collection(db, "users");
-        getDocs(usersListRef, orderBy("profilePicture")).then((docs) => {
-            docs.forEach((doc) => {
-                setDestList( prevState => ({
-                    ...prevState,
-                    [doc.id]: doc.data().profilePicture
-                }));
+        if (!currentUser) {
+            navigate("/login");
+        }
+        const getUsers = () => {
+            const usersListRef = collection(db, "users");
+            getDocs(usersListRef).then((docs) => {
+                docs.forEach((doc) => {
+                    if (doc.id !== currentUser.uid) {
+                        setDestList( prevState => ({
+                            ...prevState,
+                            [doc.id]: doc.data().profilePicture
+                        }));
+                    }
+                });
             });
-        });
+        }
+        getUsers();
             
     }, []);
 
+    
     const handleClick = (destUid) => {
-        destChoose(destUid);
-        messageSubmit();
-        navigate("/home");
-    }
+        setDest(destUid);
+        if (message){
+        const destRef = doc(db, "conversations", destUid);
+        const senderRef = doc(db, "conversations", currentUser.uid);
 
+        const theNewmessage = {
+            sender: currentUser.uid,
+            message: message,
+            date: new Date().toLocaleString(),
+        }
+        
+        updateDoc(destRef, currentUser.uid, arrayUnion(theNewmessage))
+            .then(() => {
+                updateDoc(senderRef, destUid, arrayUnion(theNewmessage))
+                .then(() => {
+                    updateDoc(userRef, "contacts", arrayUnion(destUid)).then(() => {
+                        setMessage(null);
+                        setDest(null);
+                        navigate('/home');
+                    })
+                
+                })
+            })
+        }
+        
+    }
+    
+    
 
     return (
         <>
+
             <img style={logoStyle} src="./img/logoP1.png" alt="logo" />
             <div className='chooseDest' style={style}>
                 <p>Choisissez votre destinataire</p>
@@ -85,7 +121,6 @@ const ChooseDest = ({destChoose, messageSubmit}) => {
                     )}
                 </div>
             </div>
-
 
         </>
     );

@@ -1,29 +1,19 @@
 import React, {useState}from 'react';
 import Profile from "./Profile"
 import MessagerieScreen from "./MessagerieScreen"
-import Welcome from "./Welcome"
+import Conversations from "./Conversations"
 
 
-const Messagerie = ({logOut, userUid, messageChange}) => {
+const Messagerie = ({ message, setMessage }) => {
     const [showMessageForm, setShowMessageForm] = useState(false);
-    
-
-    const HandleShowForm = (bool) => {
-        setShowMessageForm(bool);
-    }
-
-    const handleMessageChange = (message) => {
-        messageChange(message);
-    }
-
     
     return (
         <div id="messagerie" className="d-flex flex-row">
-            <Profile logOut={logOut} userUid={userUid} />
+            <Profile />
             {showMessageForm ?
-             <MessagerieScreen showBool={showMessageForm} HandleShowBool={HandleShowForm} messageChange={handleMessageChange}/> 
+                <MessagerieScreen showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} message={message} setMessage={setMessage}/> 
             : 
-            <Welcome showBool={showMessageForm} HandleShowBool={HandleShowForm}/>}
+                <Conversations showMessageForm={showMessageForm} setShowMessageForm={setShowMessageForm} />}
         </div>
     );
 };

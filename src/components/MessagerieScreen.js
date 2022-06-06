@@ -5,11 +5,9 @@ import { useNavigate } from 'react-router';
 import update from 'immutability-helper';
 
 
-const MessagerieScreen = ({showBool, HandleShowBool, messageChange}) => {
+const MessagerieScreen = ({showMessageForm, setShowMessageForm, message, setMessage}) => {
     const navigate = useNavigate();
-    const [message, setMessage] = useState({});
     const [newBg, setNewBg] = useState("");
-    const [newMessageBody, setNewMessageBody] = useState({});
     
 
     const returnButtonStyle = {
@@ -19,6 +17,8 @@ const MessagerieScreen = ({showBool, HandleShowBool, messageChange}) => {
         width: '60px',
         height: '60px',
         background: 'url(./img/return.jpeg) center/cover',
+        borderRadius: '10px',
+
     };
 
     const sendButtonStyle = {
@@ -27,9 +27,8 @@ const MessagerieScreen = ({showBool, HandleShowBool, messageChange}) => {
         marginTop: '300px',
         width: '60px',
         height: '60px',
-        border: '2px solid #5682B4',
-       
         background: 'url(./img/send.png) center/cover',
+        borderRadius: '10px',
     };
 
 
@@ -38,42 +37,14 @@ const MessagerieScreen = ({showBool, HandleShowBool, messageChange}) => {
         theNewBg === newBg ? setNewBg("") : setNewBg(theNewBg);
     }
 
-    const handleMessageBodyChange = (id, left, top) => {
-        if(!newMessageBody.hasOwnProperty(id)){
-            setNewMessageBody({...newMessageBody, [id]: {left, top}});
-        }
-        else{
-            setNewMessageBody(update(newMessageBody, {
-                [id]: {
-                    $merge: { left, top },
-                },
-            }));
-        }
-
-        setMessage({...message, body: {...newMessageBody}});
-    }
-
-
-
-    const HandleForm = () => {
-        HandleShowBool(!showBool);
-    }
-
-    const HandleSend = () => {
-        messageChange(message);
-        navigate("/chooseDest");
-    }
-
-    
-
 
     return (
         <div id="interactive-container" className="d-flex flex-column">
-                <button style={returnButtonStyle} type="button" onClick={HandleForm}/>
+                <button style={returnButtonStyle} type="button" onClick={()=> setShowMessageForm(!showMessageForm)}/>
                 {newBg && <button style={sendButtonStyle} type="button"
-                onClick={HandleSend}/>}
+                onClick={()=> navigate("/chooseDest")}/>}
                 
-                <ChatContainer messageBg={newBg} messageChange={handleMessageBodyChange}/>
+                <ChatContainer messageBg={newBg} message={message} setMessage={setMessage} />
                 <TypeAndSendMessages bgChanges={bgChanges}/>
         </div>
     );

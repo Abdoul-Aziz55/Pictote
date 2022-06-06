@@ -1,40 +1,62 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import {db} from '../Firebase/firebase-config';
+import {doc, getDoc} from 'firebase/firestore';
+import { AuthContext } from '../Firebase/Auth';
 
-// import {db} from '../Firebase/firebase-config';
-// import {doc, getDoc} from 'firebase/firestore';
 
+const ContactList = () => {
 
-const ContactList = ({userUid}) => {
+    const [contacts, setContacts] = useState([]);
+    const { currentUser } = useContext(AuthContext);
+    const userRef = doc(db, "users", currentUser.uid);
 
-    // const [contacts, setContacts] = useState([]);
+    useEffect(() => {
+        const getContacts = () => {
+            getDoc(userRef).then((document) => {
+                document.data().contacts.forEach(contact => {
+                    const contactRef = doc(db, "users", contact);
+                    getDoc(contactRef).then((currentContact) => {
+                        setContacts(contacts => [...contacts, {profilePicture: currentContact.data().profilePicture, name: currentContact.data().firstName, uid: currentContact.id}]);
+                    })
+                })
+            });
+        }
+        getContacts();
+    }, []);
 
-    // useEffect(() => {
-    //     const userRef = doc(db, "users", userUid);
-    //     getDoc(userRef).then((doc) => {
-    //         setContacts(doc.data().contacts);
-    //     }
-    //     );
+    const contactListStyle = {
+        overflowY: 'scroll',
+        display: 'flex',
+        flexDirection: 'column',
+        minWidth: '200px',
+        marginTop: '20px',
+    }
 
-    // }, []);
+    const contactStyle = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: '10px',
+    }
+
+    const contactImgStyle = {
+        width: '60px',
+        border: '5px solid #B22222',
+        borderRadius: '50%',
+    }
 
     
 
 
     return (
-        <div id="contactList" className="flex-grow-1">
-            <div className="contact">
-                <img className="famille" src="./img/39.jpg" alt="papi"/>
-                <h3>Papi</h3>
-            </div>
-            <div className="contact">
-                <img id="camille" src="./img/40.jpg" alt="camille"/>
-                <h3>Camille</h3>
-            </div>
-            <div className="contact">
-                <img className="orthophoniste" src="./img/38.jpg" alt="orthophoniste"/>
-                <h3>Orthophoniste</h3>
-            </div>
-
+        <div style={contactListStyle} className="flex-grow-1">
+            {contacts.map(contact => (
+                <div style={contactStyle} key={contact.uid}>
+                    <img style={contactImgStyle} src={contact.profilePicture} alt={contact.name}/>
+                    <p style={{marginTop: '20px'}}>{contact.name}</p>
+                </div>
+            ))}
         </div>
         
     );

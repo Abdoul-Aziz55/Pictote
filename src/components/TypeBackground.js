@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TypeBackground = ({handleBgChanges}) => {
+const TypeBackground = ({ bgChanges }) => {
 
     let backgrounds = [];
     for (let i = 1; i <7; i++){
@@ -13,7 +13,7 @@ const TypeBackground = ({handleBgChanges}) => {
         <div id="typeBackground" className="d-flex flex-row">
             {backgrounds.map(background => (
                 <img className="background" src={background} alt="background" key={background} onClick={()=>{;
-                    handleBgChanges(background)
+                    bgChanges(background)
                 }}/>
             ))}
         </div>
