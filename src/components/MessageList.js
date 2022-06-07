@@ -99,7 +99,7 @@ const MessageList = ({convId}) => {
                 if (message.sender === currentUser.uid){ // si le message est envoye par l utilisateur courant on applique un different style
                     return (
                         <div style={{...messageContainerStyle}} key={message.date}>
-                            <div style={{...bgStyle, marginLeft: '20vw', marginTop: '10px', position: 'relative'}}>
+                            <div style={{...bgStyle, marginLeft: '17vw', marginTop: '10px', position: 'relative'}}>
                                 <img src={message.message.background} style={bgStyle} alt={message.date}/>
                                 {message.message.body && Object.keys(message.message.body).map((pictoId) => {
                                    
@@ -110,7 +110,7 @@ const MessageList = ({convId}) => {
                                     )
                                 })}
                             </div>
-                            <div style={{...footerStyle, marginLeft: "20vw"}}>
+                            <div style={{...footerStyle, marginLeft: "17vw"}}>
                                 <p>{message.date}</p>
                                 <img src={userProfilPic} style={profileImgStyle} alt={message.date}/>
                             </div>
