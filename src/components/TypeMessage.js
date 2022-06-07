@@ -3,6 +3,10 @@ import {React, useState} from 'react';
 import Picto from './Picto';
 
 const TypeMessage = () => {
+    /**
+     * ce composant contient les differents pictogrammes disponbiles classes par categorie de pictogrammes.
+     */
+    const [active, setActive] = useState("1");
 
     let pictos = [];
     for (let i = 0; i <14; i++){
@@ -57,7 +61,7 @@ const TypeMessage = () => {
         pictos[12].push(`./pictogrammes/time/T${i}.png`);
     }
    
-    const [active, setActive] = useState("1");
+    
     
     
     return (

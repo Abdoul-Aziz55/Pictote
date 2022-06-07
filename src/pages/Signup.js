@@ -10,6 +10,9 @@ import { ref, getDownloadURL } from "firebase/storage";
 
 
 const Signup = () => {
+    /**
+     * page qui permet a un utilisateur nouveau de s'inscrire sur l application (sans verification de mail)
+     */
     const navigate = useNavigate();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -35,7 +38,7 @@ const Signup = () => {
         }
         verifyUserProfilePic();
         
-    }, [currentUser])
+    }, [currentUser]) // redirection d un utilisateur qui est deja inscrit vers la page daccueil de l appli
 
 
     /***

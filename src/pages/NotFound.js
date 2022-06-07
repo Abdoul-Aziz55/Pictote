@@ -1,6 +1,9 @@
 import React from 'react';
 
 const NotFound = () => {
+    /**
+     * page 404 qui s affiche si l utilisateur essaie d acceder a une page qui n existe pas
+     */
     const style = {
         backgroundColor: '#B0E0E6',
         justifyContent: 'center',

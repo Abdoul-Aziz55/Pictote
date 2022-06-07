@@ -4,7 +4,10 @@ import { doc, updateDoc, collection, getDocs, arrayUnion } from 'firebase/firest
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/Auth';
 
-const ChooseDest = ({ message, setMessage, setDest }) => {
+const ChooseDest = ({ message, setMessage }) => {
+    /**
+     * page qui permet de choisir un destinataire et de lui envoyer le message recu en props
+     */
     const navigate = useNavigate();
     const [destList, setDestList] = useState({});
     const {currentUser} = useContext(AuthContext);
@@ -52,15 +55,15 @@ const ChooseDest = ({ message, setMessage, setDest }) => {
 
     useEffect(() => {
 
-        if (!currentUser) {
+        if (!currentUser) { // si l utilisateur n est pas connecte on renvoie vers la page de connexion
             navigate("/login");
         }
-        const getUsers = () => {
+        const getUsers = () => { // on recupere la liste des utilisateurs de l appli (sauf l utilisateur courant) pour proposer en tant que destinataires du message
             const usersListRef = collection(db, "users");
             getDocs(usersListRef).then((docs) => {
                 docs.forEach((doc) => {
                     if (doc.id !== currentUser.uid) {
-                        setDestList( prevState => ({
+                        setDestList( prevState => ({ // on recupere juste la photo de profile des autres utilisateurs
                             ...prevState,
                             [doc.id]: doc.data().profilePicture
                         }));
@@ -72,9 +75,13 @@ const ChooseDest = ({ message, setMessage, setDest }) => {
             
     }, []);
 
-    
+    /**
+     * fonction qui permet denvoyer le message(non vide) a l utilisateur selectionne.
+     * on met aussi a jour le message a l utilisateur courant
+     * une fois le message envoye, on remet le message a null et on retourne sur la page d'accueil de la messagerie
+     * @param destUid l'uid de l utilisateur choisi
+     */
     const handleClick = (destUid) => {
-        setDest(destUid);
         if (message){
         const destRef = doc(db, "conversations", destUid);
         const senderRef = doc(db, "conversations", currentUser.uid);
@@ -91,7 +98,6 @@ const ChooseDest = ({ message, setMessage, setDest }) => {
                 .then(() => {
                     updateDoc(userRef, "contacts", arrayUnion(destUid)).then(() => {
                         setMessage(null);
-                        setDest(null);
                         navigate('/home');
                     })
                 

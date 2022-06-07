@@ -5,6 +5,10 @@ import { Navigate } from 'react-router-dom';
 
 
 const PrivateRoute = ({ Component, alternativePath }) => {
+    /***
+     * ce composant permet d afficher un composant si l utilisateur est connecte ou de rediriger
+     *  vers une page alternative si l utilisateur n est pas connecte
+     */
     const {currentUser} = useContext(AuthContext);
     return (
             currentUser ? 

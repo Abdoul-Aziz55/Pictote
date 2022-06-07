@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router';
 
 
 const MessagerieScreen = ({showMessageForm, setShowMessageForm, message, setMessage}) => {
+    /**
+     * ce composant  est le conteneur du chat, du clavier et de certains boutons de controle qui permettent denvoyer le message
+     * et de retourner aux conversations. Le button d envoi est invisible si le message est vide(si le background est vide)
+     */
     const navigate = useNavigate();
     const [newBg, setNewBg] = useState("");
     
@@ -30,7 +34,11 @@ const MessagerieScreen = ({showMessageForm, setShowMessageForm, message, setMess
         borderRadius: '10px',
     };
 
-
+    /**
+     *  permet juste de mettre a jour le background de la conversation. Si on appuie deux fois sur le meme background,
+     * le background est remis a vide
+     * @param theNewBg le nouveau background de la conversation
+     */
     const bgChanges = (theNewBg) =>{
         setMessage({...message, background: theNewBg});
         theNewBg === newBg ? setNewBg("") : setNewBg(theNewBg);

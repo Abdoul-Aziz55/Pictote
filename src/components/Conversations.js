@@ -9,6 +9,11 @@ import MessageList from './MessageList';
 
 
 const Conversations = ({showMessageForm, setShowMessageForm }) => {
+    /**
+     * ce composant recupere les references des conversations que l utilisateur courant a eu avec les autres.
+     * il permet notament d afficher les messages d une conversation en cliquant dessus. Pour cela il fait
+     * appel au composant MessageList en lui passant l id de la conversation(ie de l utilisateur choisi pour Afficher la conversation)
+     */
     const [conversations, setConversations] = useState([]);
     const {currentUser} = useContext(AuthContext);
     const [currentConvToShow, setCurrentConvToShow] = useState(null);
@@ -16,7 +21,6 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
     
 
     useEffect(() => {
-        
         const getUsers = () => {
             getDoc(userRef)
             .then((document) => {
@@ -25,7 +29,6 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
                     getDoc(convRef)
                     .then((document1) => {
                         setConversations(prevConv => [...prevConv, {...document1.data(), id: uid}]);
-                        
                     });
                 });
             });
@@ -36,7 +39,7 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         getUsers();
         
         
-    }, []);
+    }, []); 
     
     const containerStyle = {
         display: 'flex',
