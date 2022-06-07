@@ -1,11 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {auth, db} from "../Firebase/firebase-config";
+import { auth, db, storage } from "../Firebase/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"
+import { doc, setDoc, getDoc} from "firebase/firestore"
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Firebase/Auth';
+import { ref, getDownloadURL } from "firebase/storage";
 
 
 const Signup = () => {
@@ -18,12 +19,22 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);
     const { currentUser } = useContext(AuthContext);
+    
 
     
     useEffect(() => {
-        if (currentUser) {
-            navigate("/home");
+        const verifyUserProfilePic = () => {
+            if (currentUser) {
+                const userRef = doc(db, "users", currentUser.uid);
+                getDoc(userRef).then((doc) => {
+                    if (doc.data() && doc.data().profilePicture) {
+                        navigate("/home");
+                    }
+                });
+            }
         }
+        verifyUserProfilePic();
+        
     }, [currentUser])
 
 
@@ -48,21 +59,24 @@ const Signup = () => {
                 email,
                 password)
         .then((userCredential) => {
-            const user = userCredential.user;
-            setDoc(doc(db, "users", user.uid), {
-                firstName: firstName,
-                lastName: lastName,
-                profilePicture: "",
-                // birthDate: birthDate,
-                email: email,
-                contacts: [],
-    
-    
-            }) // keep track of the user on the database
-            .then(() => {
-                setDoc(doc(db, "conversations", user.uid), {}) // create a new conversation for the user
+            const defaultProfilPicture = ref(storage, "profilePictures/profil.jpg");
+            getDownloadURL(defaultProfilPicture).then((url) => {
+                const user = userCredential.user;
+                setDoc(doc(db, "users", user.uid), {
+                    firstName: firstName,
+                    lastName: lastName,
+                    profilePicture: url,
+                    // birthDate: birthDate,
+                    email: email,
+                    contacts: [],
+        
+        
+                }) // keep track of the user on the database
                 .then(() => {
-                    navigate("/chooseProfilePic");
+                    setDoc(doc(db, "conversations", user.uid), {}) // create a new conversation for the user
+                    .then(() => {
+                        navigate("/home");
+                    })
                 })
             })
 
