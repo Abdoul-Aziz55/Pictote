@@ -2,6 +2,13 @@ import React from 'react';
 import { useDrag } from 'react-dnd';
 
 const Picto = ({ id, picto, left, top, isCopy }) => {
+    /**
+     * composant qui represente un pictogramme.
+     * il est possible de le saisir et le deplacer sur la page grace a useDrag pour le deposer 
+     * dans un endroit ou il est possible de le deposer
+     * La propriete isCopy permet de savoir si le pictogramme est copie ou non pour pouvoir differencier un pictogramme
+     * affiche sur le clavier et un pictogramme qui fait partie d un message.
+     */
     var style = {
         height:'60px',
         width:'60px',
@@ -14,6 +21,10 @@ const Picto = ({ id, picto, left, top, isCopy }) => {
         position: 'absolute',
     };
     
+    /***
+     * useDrag permet de recuperer les donnees du composant pour le deplacer
+     * voir la documentation pour plus de details
+     */
     const [, drag] = useDrag(() => ({
         type: 'picto',
         item: { id, left, top },

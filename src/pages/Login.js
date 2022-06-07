@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+    /**
+     * page de connexion qui permet a l utilisateur de se connecter s il ne l est pas deja
+     */
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
