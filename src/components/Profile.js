@@ -76,7 +76,7 @@ const Profile = () => {
         background:'#B0E0E6',
         alignItems: 'center',
         minWidth: '250px',
-        minHeight: '775px',
+        minHeight: '100vh',
     }
     const logoPictoteStyle = {
         padding: '20px',
