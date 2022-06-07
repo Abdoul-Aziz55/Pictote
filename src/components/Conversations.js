@@ -46,16 +46,15 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         flexDirection: 'row',
         flexGrow: '1',
         marginLeft: '20px',
-        minHeight: '100vh',
-        width: '100%',
+        height: '100vh',
     }
     const convListStyle = {
         display: 'flex',
         flexDirection: 'column',
         width: '30%',
         marginLeft: '10px',
-        minWidth: '200px',
-        minHeight: '100vh',
+        minWidth: '230px',
+        height: '100vh',
         background: '#B0E0E6',
         overflowY: 'scroll',
 

@@ -72,11 +72,10 @@ const Profile = () => {
     // ci dessous les variables de styles pour les differents elements associes au composant Profile
     const profileStyle = {
         width: '250px',
-        height: '100vh',
         background:'#B0E0E6',
         alignItems: 'center',
         minWidth: '250px',
-        minHeight: '100vh',
+        height: '100vh',
     }
     const logoPictoteStyle = {
         padding: '20px',
