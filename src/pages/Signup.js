@@ -118,8 +118,8 @@ const Signup = () => {
     };
 
     const logoStyle = {
-        width: '350px',
-        height: '100px',
+        width: '25vw',
+        height: '10vh',
         position: 'absolute',
         marginTop: '10px',
         marginLeft: '10px',
