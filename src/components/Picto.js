@@ -13,9 +13,7 @@ const Picto = ({ id, picto, left, top, isCopy }) => {
         height:'60px',
         width:'60px',
         margin: '15px',
-        border: '2px solid',
         padding: '5px',
-        background: '$color-3',
         cursor: 'move',
         zIndex: '1',
         position: 'absolute',
@@ -36,7 +34,7 @@ const Picto = ({ id, picto, left, top, isCopy }) => {
     
     if (isCopy){
         return (
-            <img ref={drag} className="picto" style = {{...style, left, top}} src={picto} alt={picto} key={picto}/>
+            <img ref={drag} style = {{...style, left, top}} src={picto} alt={picto} key={picto}/>
         );
     }
     return (
