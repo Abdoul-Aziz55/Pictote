@@ -28,7 +28,8 @@ const StartingPage = () => {
         height: '100px',
         position: 'absolute',
         marginTop: '10px',
-        marginLeft: '10px'
+        marginLeft: '10px',
+        cursor: 'pointer',
     }
 
 

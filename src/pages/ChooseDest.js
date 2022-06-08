@@ -30,7 +30,8 @@ const ChooseDest = ({ message, setMessage }) => {
         height: '100px',
         position: 'absolute',
         marginTop: '10px',
-        marginLeft: '10px'
+        marginLeft: '10px',
+        cursor: 'pointer',
     }
 
     const usersListStyle = {
@@ -112,7 +113,7 @@ const ChooseDest = ({ message, setMessage }) => {
     return (
         <>
 
-            <img style={logoStyle} src="./img/logoP1.png" alt="logo" />
+            <img style={logoStyle} src="./img/logoP1.png" alt="logo" onClick={() => navigate('/home')}/>
             <div className='chooseDest' style={style}>
                 <p>Choisissez votre destinataire</p>
                 <div className='destList' style={usersListStyle}>
