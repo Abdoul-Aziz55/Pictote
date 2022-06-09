@@ -99,7 +99,7 @@ const MessageList = ({convId}) => {
                 if (message.sender === currentUser.uid){ // si le message est envoye par l utilisateur courant on applique un different style
                     return (
                         <div style={{...messageContainerStyle}} key={message.date}>
-                            <div style={{...bgStyle, marginLeft: '17vw', marginTop: '10px', position: 'relative'}}>
+                            <div style={{...bgStyle, marginLeft: '18vw', marginTop: '10px', position: 'relative'}}>
                                 <img src={message.message.background} style={bgStyle} alt={message.date}/>
                                 {message.message.body && Object.keys(message.message.body).map((pictoId) => {
                                    
@@ -110,7 +110,7 @@ const MessageList = ({convId}) => {
                                     )
                                 })}
                             </div>
-                            <div style={{...footerStyle, marginLeft: "17vw"}}>
+                            <div style={{...footerStyle, marginLeft: "18vw"}}>
                                 <p>{message.date}</p>
                                 <img src={userProfilPic} style={profileImgStyle} alt={message.date}/>
                             </div>
@@ -119,7 +119,7 @@ const MessageList = ({convId}) => {
                 }
                 return ( // si le message est envoye par l utilisateur qui a l id convId on applique un different style
                     <div style={{...messageContainerStyle}} key={message.date}>
-                            <div style={{...bgStyle, marginLeft: '5vw', marginTop: '10px', position: 'relative'}}>
+                            <div style={{...bgStyle, marginLeft: '8vw', marginTop: '10px', position: 'relative'}}>
                                 <img src={message.message.background} style={bgStyle} alt={message.date}/>
                                 {message.message.body && Object.keys(message.message.body).map((pictoId) => {
                                     const left = message.message.body[pictoId].left;
@@ -129,7 +129,7 @@ const MessageList = ({convId}) => {
                                     )
                                 })}
                             </div>
-                            <div style={{...footerStyle, marginLeft: "5vw"}}>
+                            <div style={{...footerStyle, marginLeft: "8vw"}}>
                                 <img src={otherUserProfilPic} style={profileImgStyle} alt={message.date}/>
                                 <p>{message.date}</p>
                             </div>
