@@ -53,14 +53,27 @@ const NewMessageForm = ({messageBg, setMessage}) => {
                 if (left < 0) {
                     left = 0;
                 }
-
-                moveThePictos(item.id, left + containerPos.left, top + containerPos.top); // on met a jour la position du picto
-                setMessage(prevState => {
-                    if (prevState.body){
-                        return {...prevState, body: {...prevState.body, [item.id]: {left: left, top: top}}};   
+                //on verifie que le picto ne chevauche pas un autre picto
+                let isCrossing = false;
+                Object.keys(thePictos).forEach(id => {
+                    if (id !==item.id){
+                        if (Math.abs(thePictos[id].left - left ) < 60 && Math.abs(thePictos[id].top - top) < 60){
+                            isCrossing = true;
+                        }
                     }
-                    return {...prevState, body: {[item.id]:{left: left, top: top}}}
-                }); // mise a jour du message
+                })
+
+                if (!isCrossing){
+                    moveThePictos(item.id, left + containerPos.left, top + containerPos.top); // on met a jour la position du picto
+                    setMessage(prevState => {
+                        if (prevState.body){
+                            return {...prevState, body: {...prevState.body, [item.id]: {left: left, top: top}}};   
+                        }
+                        return {...prevState, body: {[item.id]:{left: left, top: top}}}
+                    }); // mise a jour du message
+                }
+
+                
             } else { // si le picto est deja dans le message on remplace l ancien picto par le nouveau pictogramme depose a la nouvelle position
                 const delta = monitor.getDifferenceFromInitialOffset(); // voir la doc. c est en gros la position du pictogramme sur la page
                 
@@ -73,9 +86,24 @@ const NewMessageForm = ({messageBg, setMessage}) => {
                 if (left < 0) {
                     left = 0;
                 }
+                //on verifie que le picto ne chevauche pas un autre picto
+                let isCrossing = false;
+                Object.keys(thePictos).forEach(id => {
+                    if (id !==item.id){
+                        if (Math.abs(thePictos[id].left - left ) < 60 && Math.abs(thePictos[id].top - top) < 60){
+                            isCrossing = true;
+                        }
+                    } 
+                })
+                if (!isCrossing){
+                    moveThePictos(item.id, left + containerPos.left, top + containerPos.top); // on met a jour la position du picto
+                    setMessage(prevState => ({...prevState, body: {...prevState.body, [item.id]: {left: left, top: top}}})); // mise a jour du message
+                }
+
+
     
-                moveThePictos(item.id, left + containerPos.left, top + containerPos.top); // on met a jour la position du picto
-                setMessage(prevState => ({...prevState, body: {...prevState.body, [item.id]: {left: left, top: top}}})); // mise a jour du message
+                //moveThePictos(item.id, left + containerPos.left, top + containerPos.top); // on met a jour la position du picto
+                //setMessage(prevState => ({...prevState, body: {...prevState.body, [item.id]: {left: left, top: top}}})); // mise a jour du message
                 
                 
             }

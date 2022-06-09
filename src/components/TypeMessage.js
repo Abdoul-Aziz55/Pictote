@@ -110,22 +110,21 @@ const TypeMessage = () => {
 
             </div>
             <div className="d-flex flex-row">
-                <nav>
-                    <button onClick={()=> setActive("1")}>Nourriture</button>
-                    <button onClick={()=> setActive("2")}>École</button>
-                    <button onClick={()=> setActive("3")}>Maison</button>
-                    <button onClick={()=> setActive("4")}>Émotions</button>
-                    <button onClick={()=> setActive("5")}>Flore</button>
-                    <button onClick={()=> setActive("6")}>Faune</button>
-                    <button onClick={()=> setActive("7")}>Actions</button>
-                    <button onClick={()=> setActive("8")}>Famille</button>
-                    <button onClick={()=> setActive("9")}>Transport</button>
-                    <button onClick={()=> setActive("10")}>Météo</button>
-                    <button onClick={()=> setActive("11")}>Perso</button>
-                    <button onClick={()=> setActive("12")}>Habits</button>
-                    <button onClick={()=> setActive("13")}>Time</button>
-                </nav>
-
+                
+                <button onClick={()=> setActive("1")}>Nourriture</button>
+                <button onClick={()=> setActive("2")}>École</button>
+                <button onClick={()=> setActive("3")}>Maison</button>
+                <button onClick={()=> setActive("4")}>Émotions</button>
+                <button onClick={()=> setActive("5")}>Flore</button>
+                <button onClick={()=> setActive("6")}>Faune</button>
+                <button onClick={()=> setActive("7")}>Actions</button>
+                <button onClick={()=> setActive("8")}>Famille</button>
+                <button onClick={()=> setActive("9")}>Transport</button>
+                <button onClick={()=> setActive("10")}>Météo</button>
+                <button onClick={()=> setActive("11")}>Perso</button>
+                <button onClick={()=> setActive("12")}>Habits</button>
+                <button onClick={()=> setActive("13")}>Time</button>
+                
                 
             </div>
             
