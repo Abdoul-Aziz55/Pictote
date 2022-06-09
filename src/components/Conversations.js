@@ -52,7 +52,6 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         display: 'flex',
         flexDirection: 'column',
         width: '30%',
-        marginLeft: '10px',
         minWidth: '230px',
         height: '100vh',
         background: '#B0E0E6',
@@ -63,9 +62,8 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         display: 'flex',
         flexDirection: 'column',
         marginLeft: '10px',
-        width: '70%',
-        minWidth: '700px',
         minHeight: '100vh',
+        flexGrow: '1',
         background: '#B0E0E6',
         overflowY: 'scroll',
 
@@ -129,7 +127,7 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
             <div style={convStyle}>
                 {currentConvToShow && <MessageList convId={currentConvToShow}/>}
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end',}}>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <button style={buttonStyle} type="button" onClick={()=> setShowMessageForm(!showMessageForm)}/>
             </div>
             
