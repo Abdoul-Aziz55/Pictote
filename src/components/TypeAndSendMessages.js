@@ -12,10 +12,10 @@ const TypeAndSendMessages = ({ bgChanges }) => {
 
     return (
         <div className="keyboard">
-            <nav>
+            <div>
                 <button onClick={()=> setActive("background")}>Background</button>
                 <button onClick={()=> setActive("pictogrammes")}>Pictogrammes</button>
-            </nav>
+            </div>
             {active === "background" && <TypeBackground bgChanges={ bgChanges }/> }
             {active === "pictogrammes" && <TypeMessage/> }
         </div>
