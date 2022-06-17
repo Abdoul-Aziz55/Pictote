@@ -2,6 +2,7 @@
     background: $color-2;
     display:flex;
     flex-wrap: wrap;
-    max-height: 280px;
+    max-height: 335px;
     overflow-y: scroll;
+    flex-grow: 1;
 }

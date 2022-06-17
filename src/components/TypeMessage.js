@@ -115,7 +115,7 @@ const TypeMessage = () => {
                 })}
 
             </div>
-            <div style={{height:'60px'}} className="d-flex flex-row">
+            <div style={{height:'60px', overflowY: 'scroll'}} className="d-flex flex-row">
                 <nav>
                     <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
                         src='./categories/nourriture_transparent.png' alt='nourriture' 
@@ -130,7 +130,7 @@ const TypeMessage = () => {
                     <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
                         src='./categories/maison_transparent.png' alt='maison'  
                         onClick={()=> {
-                            
+
                             setActive("3")}}/>
                     <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
                         src='./categories/emotions_transparent.png' alt='emotions' 
