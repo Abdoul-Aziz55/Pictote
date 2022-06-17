@@ -4,7 +4,10 @@
     display: flex;
     background-color: $color-3;
 }
-.keyboard nav button {
-    flex: 50%;
-    
+
+
+.keyboard {
+    display: flex;
+    flex-grow: 1; 
+    flex-direction: column;
 }

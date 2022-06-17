@@ -1,6 +1,7 @@
-
 import {React, useState} from 'react';
 import Picto from './Picto';
+import {Howl} from 'howler';
+
 
 const TypeMessage = () => {
 
@@ -59,6 +60,15 @@ const TypeMessage = () => {
    
     const [active, setActive] = useState("1");
     
+    const soundPlay = (src) => {
+        const sound = new Howl({
+            src: [src],
+            volume: 1.0,
+            loop: false,
+            autoplay: true,
+        });
+        sound.play();   // play the sound
+    }
     
     return (
 
@@ -105,21 +115,73 @@ const TypeMessage = () => {
                 })}
 
             </div>
-            <div className="d-flex flex-row">
+            <div style={{height:'60px'}} className="d-flex flex-row">
                 <nav>
-                    <button onClick={()=> setActive("1")}>Nourriture</button>
-                    <button onClick={()=> setActive("2")}>École</button>
-                    <button onClick={()=> setActive("3")}>Maison</button>
-                    <button onClick={()=> setActive("4")}>Émotions</button>
-                    <button onClick={()=> setActive("5")}>Flore</button>
-                    <button onClick={()=> setActive("6")}>Faune</button>
-                    <button onClick={()=> setActive("7")}>Actions</button>
-                    <button onClick={()=> setActive("8")}>Famille</button>
-                    <button onClick={()=> setActive("9")}>Transport</button>
-                    <button onClick={()=> setActive("10")}>Météo</button>
-                    <button onClick={()=> setActive("11")}>Perso</button>
-                    <button onClick={()=> setActive("12")}>Habits</button>
-                    <button onClick={()=> setActive("13")}>Time</button>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/nourriture_transparent.png' alt='nourriture' 
+                        onClick={()=> {
+                        soundPlay('./audio/nourriture.wav');
+                        setActive("1")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/ecole_transparent.png' alt='nourriture'  
+                        onClick={()=> {
+                            soundPlay('./audio/ecole.wav');
+                            setActive("2")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/maison_transparent.png' alt='maison'  
+                        onClick={()=> {
+                            
+                            setActive("3")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/emotions_transparent.png' alt='emotions' 
+                        onClick={()=> {
+                            soundPlay('./audio/emotion.wav');
+                            setActive("4")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/vegetaux_transparent.png' alt='vegetaux'  
+                        onClick={()=> {
+                            soundPlay('./audio/vegetaux.wav');
+                            setActive("5")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/animaux_transparent.png' alt='animaux'  
+                        onClick={()=> {
+                            soundPlay('./audio/animaux.wav');
+                            setActive("6")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                    src='./categories/action_transparent.png' alt='action'  
+                    onClick={()=> {
+                        soundPlay('./audio/action.wav');
+                        setActive("7")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/famille_transparent.png' alt='famille'  
+                        onClick={()=> {
+                            soundPlay('./audio/famille.wav');
+                            setActive("8")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/transport_transparent.png' alt='transport'  
+                        onClick={()=> {
+                            soundPlay('./audio/transport.wav');
+                            setActive("9")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/meteo_transparent.png' alt='meteo'  
+                        onClick={()=> {
+                            soundPlay('./audio/meteo.wav');
+                            setActive("10")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/personnes_transparent.png' alt='personnes'  
+                        onClick={()=> {
+                            soundPlay('./audio/personnes.wav');
+                            setActive("11")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/vetement_transparent.png' alt='vetement'  
+                        onClick={()=> {
+                            soundPlay('./audio/vetement.wav');
+                            setActive("12")}}/>
+                    <img style={{marginLeft:'10px',marginRight:'10px', height: '60px', border:'5px solid #B22222', borderRadius:'5px', backgroundColor:'white'}} 
+                        src='./categories/temps_transparent.png' alt='temps'  
+                        onClick={()=> {
+
+                            setActive("13")}}/>
                 </nav>
 
                 
