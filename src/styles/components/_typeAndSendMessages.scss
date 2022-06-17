@@ -2,7 +2,12 @@
     height: 30px;
     display: flex;
     background-color: $color-3;
-    button {
-        flex: 50%;
-    }
+}
+
+
+.keyboard {
+    display: flex;
+    flex-grow: 1; 
+    flex-direction: column;
+
 }
