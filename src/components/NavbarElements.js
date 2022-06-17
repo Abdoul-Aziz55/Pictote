@@ -1,7 +1,9 @@
 import { FaBars } from 'react-icons/fa';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
-  
+/**
+ * ici on exporte juste des elements pour pouvoir faire une navbar. il n'est pas fondamental en soit
+ */
 export const Nav = styled.nav`
   background: #B0E0E6;
   height: 85px;

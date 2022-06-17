@@ -1,5 +1,4 @@
-.keyboard nav {
-    width: 100%;
+.keyboard div {
     height: 30px;
     display: flex;
     background-color: $color-3;
@@ -10,4 +9,5 @@
     display: flex;
     flex-grow: 1; 
     flex-direction: column;
+
 }

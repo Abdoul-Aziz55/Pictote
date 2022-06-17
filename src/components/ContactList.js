@@ -5,7 +5,9 @@ import { AuthContext } from '../Firebase/Auth';
 
 
 const ContactList = () => {
-
+    /**
+     * ce composant recupere les contacts de l utilisateur et les affiche
+     */
     const [contacts, setContacts] = useState([]);
     const { currentUser } = useContext(AuthContext);
     const userRef = doc(db, "users", currentUser.uid);
@@ -22,7 +24,7 @@ const ContactList = () => {
             });
         }
         getContacts();
-    }, []);
+    }, []); 
 
     const contactListStyle = {
         overflowY: 'scroll',
@@ -42,6 +44,7 @@ const ContactList = () => {
 
     const contactImgStyle = {
         width: '60px',
+        height: '60px',
         border: '5px solid #B22222',
         borderRadius: '50%',
     }

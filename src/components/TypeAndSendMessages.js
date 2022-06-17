@@ -4,7 +4,10 @@ import TypeBackground from "./TypeBackground";
 import {Howl} from 'howler';
 
 const TypeAndSendMessages = ({ bgChanges }) => {
-
+    /**
+     * ce composant contient des boutons qui permettent de switcher entre le choix du background et celui des pictogrammes
+     * il rend les differents claviers conditionnellement a la valeur de [active]
+     */
     const [active, setActive] = useState("background");
     
 

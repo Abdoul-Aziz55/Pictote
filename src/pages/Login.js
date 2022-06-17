@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Login = () => {
+    /**
+     * page de connexion qui permet a l utilisateur de se connecter s il ne l est pas deja
+     */
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -64,11 +67,12 @@ const Login = () => {
     };
 
     const logoStyle = {
-        width: '350px',
-        height: '100px',
+        width: '25vw',
+        height: '10vh',
         position: 'absolute',
         marginTop: '10px',
-        marginLeft: '10px'
+        marginLeft: '10px',
+        cursor: 'pointer',
     }
 
     const errorStyle = {

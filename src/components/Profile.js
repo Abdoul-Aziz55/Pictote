@@ -6,11 +6,13 @@ import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase-config";
 import { useNavigate } from 'react-router';
 import { AuthContext } from '../Firebase/Auth';
-import LogoP1 from "./LogoP1";
 import ContactList from "./ContactList";
 
 
 const Profile = () => {
+    /***
+     * ce composant affiche le profil de l utilisateur avec ses differents elements
+     */
     const navigate = useNavigate();
     const [profilePictureURL, setProfilePictureURL]= useState(null);
     const { currentUser } = useContext(AuthContext);
@@ -18,7 +20,9 @@ const Profile = () => {
     const userRef = doc(db, "users", currentUser.uid);
 
 
-
+    /***
+     * handleSignOut permet de se deconnecter de l application
+     */
     const handleSignOut = () => {
         signOut(auth)
         .then(() => {
@@ -28,7 +32,10 @@ const Profile = () => {
             alert(error.message);
         });
     }
-
+    /***
+     * Fonction qui permet de faire les requetes a la base de donnees pour changer la photo de profil
+     * de l utilisateur
+     */
     const handleImageChange = (e) => {
         e.preventDefault();
         const image = e.target.files[0];
@@ -48,7 +55,9 @@ const Profile = () => {
             alert(error.message);
         });
     }
-
+    /***
+     * on recupere la photo de profil de l utilisateur la premiere fois que le composant est monte sur le dom
+     */
     useEffect(() => {
         const getProfilePicture = () => {
             
@@ -60,7 +69,18 @@ const Profile = () => {
     }, []);
 
     
-
+    // ci dessous les variables de styles pour les differents elements associes au composant Profile
+    const profileStyle = {
+        width: '250px',
+        background:'#B0E0E6',
+        alignItems: 'center',
+        minWidth: '250px',
+        height: '100vh',
+    }
+    const logoPictoteStyle = {
+        padding: '20px',
+        width: '95%',
+    }
     const editButtonStyle = {
         padding: '30px',
         marginTop:'10px',
@@ -89,17 +109,10 @@ const Profile = () => {
         borderRadius: '20px',
     }
 
-    const profileStyle = {
-        width: '250px',
-        background:'#B0E0E6',
-        alignItems: 'center',
-        minWidth: '250px',
-        minHeight: '500px',
-    }
 
     return (
         <div style={profileStyle} className="d-flex flex-column">
-            <LogoP1/>
+            <img style={logoPictoteStyle} src="./img/logoP1.png" alt="logoP1" />
             <img style={profilePictureStyle} src={profilePictureURL} alt="profilePicture" />
             <input style={{display: 'none'}} 
             type="file" 

@@ -4,11 +4,15 @@ import {doc, getDoc } from 'firebase/firestore';
 import {AuthContext} from '../Firebase/Auth';
 
 const MessageList = ({convId}) => {
+    /**
+     * ce composant recupere les messages que l utilisateur courant a eu avec l utilisateur
+     * qui a l id convId sur la base de donnee et affiche les messages
+     */
     const [messages, setMessages] = useState([]);
     const [userProfilPic, setUserProfilPic] = useState(null);
     const [otherUserProfilPic, setOtherUserProfilPic] = useState(null);
     const {currentUser} = useContext(AuthContext);
-    const userRef = doc(db, "conversations", currentUser.uid);
+    const userRef = doc(db, "conversations", currentUser.uid); // reference de lutilisateur sur le document conversations de la base de donnee
 
     useEffect(() => {
         const getMessages = () => {
@@ -43,7 +47,7 @@ const MessageList = ({convId}) => {
 
         }
         getMessages();
-    }, [convId]);
+    }, [convId]); // on recupere les messages a chaque fois que l utilisateur clique sur une nouvelle conversation
 
     const messageContainerStyle = {
         display: 'flex',
@@ -92,10 +96,10 @@ const MessageList = ({convId}) => {
     return (
         <>
             {messages.map((message) => {
-                if (message.sender === currentUser.uid){
+                if (message.sender === currentUser.uid){ // si le message est envoye par l utilisateur courant on applique un different style
                     return (
                         <div style={{...messageContainerStyle}} key={message.date}>
-                            <div style={{...bgStyle, marginLeft: '20vw', marginTop: '10px', position: 'relative'}}>
+                            <div style={{...bgStyle, marginLeft: '18vw', marginTop: '10px', position: 'relative'}}>
                                 <img src={message.message.background} style={bgStyle} alt={message.date}/>
                                 {message.message.body && Object.keys(message.message.body).map((pictoId) => {
                                    
@@ -106,16 +110,16 @@ const MessageList = ({convId}) => {
                                     )
                                 })}
                             </div>
-                            <div style={{...footerStyle, marginLeft: "20vw"}}>
+                            <div style={{...footerStyle, marginLeft: "18vw"}}>
                                 <p>{message.date}</p>
                                 <img src={userProfilPic} style={profileImgStyle} alt={message.date}/>
                             </div>
                         </div>
                     )
                 }
-                return (
+                return ( // si le message est envoye par l utilisateur qui a l id convId on applique un different style
                     <div style={{...messageContainerStyle}} key={message.date}>
-                            <div style={{...bgStyle, marginLeft: '5vw', marginTop: '10px', position: 'relative'}}>
+                            <div style={{...bgStyle, marginLeft: '8vw', marginTop: '10px', position: 'relative'}}>
                                 <img src={message.message.background} style={bgStyle} alt={message.date}/>
                                 {message.message.body && Object.keys(message.message.body).map((pictoId) => {
                                     const left = message.message.body[pictoId].left;
@@ -125,7 +129,7 @@ const MessageList = ({convId}) => {
                                     )
                                 })}
                             </div>
-                            <div style={{...footerStyle, marginLeft: "5vw"}}>
+                            <div style={{...footerStyle, marginLeft: "8vw"}}>
                                 <img src={otherUserProfilPic} style={profileImgStyle} alt={message.date}/>
                                 <p>{message.date}</p>
                             </div>

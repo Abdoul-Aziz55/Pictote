@@ -9,6 +9,11 @@ import MessageList from './MessageList';
 
 
 const Conversations = ({showMessageForm, setShowMessageForm }) => {
+    /**
+     * ce composant recupere les references des conversations que l utilisateur courant a eu avec les autres.
+     * il permet notament d afficher les messages d une conversation en cliquant dessus. Pour cela il fait
+     * appel au composant MessageList en lui passant l id de la conversation(ie de l utilisateur choisi pour Afficher la conversation)
+     */
     const [conversations, setConversations] = useState([]);
     const {currentUser} = useContext(AuthContext);
     const [currentConvToShow, setCurrentConvToShow] = useState(null);
@@ -16,7 +21,6 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
     
 
     useEffect(() => {
-        
         const getUsers = () => {
             getDoc(userRef)
             .then((document) => {
@@ -25,7 +29,6 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
                     getDoc(convRef)
                     .then((document1) => {
                         setConversations(prevConv => [...prevConv, {...document1.data(), id: uid}]);
-                        
                     });
                 });
             });
@@ -36,23 +39,21 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         getUsers();
         
         
-    }, []);
+    }, []); 
     
     const containerStyle = {
         display: 'flex',
         flexDirection: 'row',
         flexGrow: '1',
         marginLeft: '20px',
-        minHeight: '100vh',
-        width: '100%',
+        height: '100vh',
     }
     const convListStyle = {
         display: 'flex',
         flexDirection: 'column',
         width: '30%',
-        marginLeft: '10px',
-        minWidth: '200px',
-        minHeight: '100vh',
+        minWidth: '230px',
+        height: '100vh',
         background: '#B0E0E6',
         overflowY: 'scroll',
 
@@ -61,9 +62,8 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
         display: 'flex',
         flexDirection: 'column',
         marginLeft: '10px',
-        width: '70%',
-        minWidth: '700px',
         minHeight: '100vh',
+        flexGrow: '1',
         background: '#B0E0E6',
         overflowY: 'scroll',
 
@@ -127,7 +127,7 @@ const Conversations = ({showMessageForm, setShowMessageForm }) => {
             <div style={convStyle}>
                 {currentConvToShow && <MessageList convId={currentConvToShow}/>}
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end',}}>
+            <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                 <button style={buttonStyle} type="button" onClick={()=> setShowMessageForm(!showMessageForm)}/>
             </div>
             

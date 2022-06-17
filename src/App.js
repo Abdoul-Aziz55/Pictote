@@ -13,7 +13,11 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { AuthProvider } from "./Firebase/Auth";
 
 function App() {
-  const [dest, setDest] = useState(null);
+  /**
+   * ici c est la racine de lapplication. on a le routage et le hooks du message;
+   * on peut ainsi passer en props le message et le destinataires au composants fils pour qu ils puissent les utiliser et les modifier.
+   * il y a aussi tous les routages de notre application
+   */
   const [message, setMessage] = useState(null);
    
 
@@ -23,7 +27,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/home" element={<PrivateRoute Component={<Home message={message} setMessage={setMessage}/>} alternativePath="/login"/>} />
-            { !dest && message && <Route exact path="/chooseDest" element={<ChooseDest message={message} setMessage={setMessage} setDest={setDest}/>}  />}
+            { message && <Route exact path="/chooseDest" element={<ChooseDest message={message} setMessage={setMessage}/>}  />}
            
             <Route path="/" element={<StartingPage/>} />
             
