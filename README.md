@@ -5,12 +5,14 @@ Elle permet de pouvoir echanger des messages avec d'autres utilisateurs de l'app
 Un message est constitué d'un context (une image) sur lequel on glisse et depose des pictogrammes.
 
 ## Pour lancer l'application
+Assurez-vous d'installer node js avant de continuer.
 
 Dans le repertoire du projet, faites la commande:
-
+### `npm install`
+puis
 ### `npm start`
 
-Lance l'application en mode developpement.\
+Ceci lance l'application en mode developpement.\
 Ouvrez [http://localhost:3000](http://localhost:3000) pour la voir dans le navigateur.
 
 La page rechargera à chaque modification de celle-ci.\
